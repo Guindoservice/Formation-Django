@@ -1,0 +1,64 @@
+{% extends 'navbar.html' %}
+{% block body %}
+
+
+
+          <h3 class="heading">Bootstrap Product Grid</h3>
+
+                 <div class="container">
+                    <div class="row product">
+                     {% for Produits in all_ajoute %}
+                        <div class="col-md-4 ">
+                          <div class="card">
+                            <div class="ccc">
+                              <p class="text-center"><img src="{{Produits.image.url}}" class="imw"></p>
+<!--                               <div class="overlay">
+                                <div class="text">View Details</div>
+                              </div> -->
+                            </div>
+                            <div class="card-body">
+                              <h5  class="text-center">{{Produits.nom}}</h5>
+                              <h5  class="text-center"> Desc: {{Produits.description}}</h5>
+                              <p  class="text-center"> Prix = {{Produits.prix}} FCFA </p>
+                              <p class="text-center"><a href="tel:+22370985670" onclick="return confirm ('Vous voulez Acheter ce produit ?');" class="btn btn-warning">Acheter</a>
+                              <input type="submit" name="Save" value=" Ajouter Panier" class=" btn btn-success" onclick="alert('Le produit ajouté avec succes !');"  >
+                              </p>
+
+                                <h5  class="text-center"> Quantité = {{Produits.quantite}}</h5>
+                                <h5  class="text-center"> Disponible= {% if Produits.disponible %}
+                                    Oui
+                                    {% else %}
+                                    Non
+                                    {% endif %}
+                                    <a href="{% url 'modifier' Produits.id %}" onclick="return confirm ('Vous voulez Modifier ?');"   class="btn btn-danger"> <i class="fa fa-check"></i> Disponibilté</a>
+                                </h5>
+                            </div>
+                          </div>
+                        </div>
+                     {% endfor %}
+                        </div>
+
+                        <div class="text-end">
+                            <a href="{% url 'Article' %}" class="btn btn-warning">vers Article</a>
+                        </div>
+                    <div class="container">
+                         <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                          {% if all_ajoute.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{all_ajoute.previous_page_number}}">Precédente</a></li>
+                          {% endif %}
+                          {% if all_ajoute.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{all_ajoute.next_page_number}}">Suivante</a></li>
+                          {% endif %}
+                      </ul>
+                    </nav>
+                    </div>
+                 </div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
+ {% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'navbar.html' %}
+{% block body %}
+
+<div class="container">
+ <div class="text-center h2">
+   Liste des Articles nom Disponible
+ </div>
+  <table class="table">
+   <thead>
+  <tr>
+    <th scope="col">Nom du produit</th>
+    <th scope="col">Prix</th>
+    <th scope="col">Quantité</th>
+    <th scope="col">Photo</th>
+    <th scope="col">Description</th>
+    <th scope="col">ETat</th>
+    <th scope="col">Disponibilité</th>
+    <th scope="col">Modification</th>
+    <th scope="col">Suppression</th>
+   </tr>
+   </thead>
+   <tbody>
+    <tr>
+     {% for Produits in all_ajoute  %}
+      <td>{{Produits.nom}}</td>
+      <td>{{Produits.prix}}</td>
+      <td>{{Produits.quantite}}</td>
+      <td><img src="{{Produits.image.url}}" width="50" height="50"></td>
+      <td>{{Produits.description}}</td>
+        <td>
+            {% if Produits.disponible %}
+            Diponible
+            {% else %}
+            Non disponible
+            {% endif %}
+        </td>
+
+       <td>
+       <a href="{% url 'modifier' Produits.id %}" onclick="return confirm ('Vous voulez Modifier ?');"   class="btn btn-success"> Non disponible</a>
+       </td>
+       <td>
+       <a href="#"   class="btn btn-primary"> Modifier</a>
+       </td>
+       <td>
+       <a href="{% url 'supprimer' Produits.id %}" onclick="return confirm('voulez-vous supprimer ?');"   class="btn btn-danger">Supprimer</a>
+       </td>
+
+    </tr>
+    {% endfor %}
+   </tbody>
+
+
+  </table>
+    <div class="text-end">
+        <a href="{% url 'Article' %}" class="btn btn-warning">vers Article</a>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if all_ajoute.has_previous %}
+             <li class="page-item"><a class="page-link" href="?page={{all_ajoute.previous_page_number}}">Precédente</a></li>
+            {% endif %}
+            {% if all_ajoute.has_next %}
+             <li class="page-item"><a class="page-link" href="?page={{all_ajoute.next_page_number}}">Suivante</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
+ {% endblock %}

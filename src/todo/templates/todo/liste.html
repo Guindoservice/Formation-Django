@@ -1,0 +1,61 @@
+{% extends 'navbar.html' %}
+{% block body %}
+      <div class="container ">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Action</th>
+                <th scope="col">Suppression</th>
+            </tr>
+            </thead>
+            <tbody>
+           {% for todo in all_todo_liste %}
+                <tr>
+                    <td>{{todo.nom}}</td>
+                    <td>
+                        {% if todo.effectuer %}
+                        Oui
+                        {% else %}
+                        Nom
+                        {% endif %}
+                    </td>
+                    <td>
+                    <a  href="{% url 'todo_change_etat' todo.id %}" onclick="return confirm('La tache est effectuer ?'); " class="btn btn-success ">Effectuer</a>
+                    </td>
+                    <td>
+
+                    <a  href="{% url 'todo_suprimer' todo.id %}" onclick="return confirm('Voulez-vous Supprimer?');" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+            <div class="container">
+
+            </div>
+          <div class="container text-center">
+              <a href="{% url 'todo_ajouter' %}" class="btn btn-primary ">Ajouter</a>
+          </div>
+
+          <div class="container text-center">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                  {% if all_todo_liste.has_previous %}
+                     <li class="page-item"><a class="page-link" href="?page={{all_todo_liste.previous_page_number}}">Precedente</a></li>
+                  {% endif %}
+                  {% if all_todo_liste.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{all_todo_liste.next_page_number}}">Suivante</a></li>
+                  {% endif %}
+              </ul>
+            </nav>
+          </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+
+{% endblock %}
